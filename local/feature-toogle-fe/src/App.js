@@ -28,6 +28,16 @@ const App = ({ isFeatureEnabled }) => (
       >
         Learn React
       </a>
+      {isFeatureEnabled("new.button") && (
+        <a
+          className="App-link"
+          href="https://github.com/stacon"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Visit My Github
+        </a>
+      )}
     </header>
   </div>
 );

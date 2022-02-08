@@ -5,7 +5,7 @@ const port = 4000;
 
 app.use(cors());
 
-const config = { "new.logo": false };
+let config = { "new.logo": false, "new.button": false };
 
 app.get("/config", (req, res) => {
   console.log(`Sending config...`);
@@ -13,10 +13,24 @@ app.get("/config", (req, res) => {
 });
 
 app.post("/:id/:boolean", (req, res) => {
-  const id = req.params.id;
+  const { id } = req.params;
   const boolean = req.params.boolean === "true";
-  config[id] = boolean;
+  config = { ...config, [id]: boolean };
+
   console.log(`${id} changed to ${boolean}`);
+
+  res.json(config);
+});
+
+app.post("/create/:id", (req, res) => {
+  const { id } = req.params;
+  config = { ...config, [id]: false };
+  res.json(config);
+});
+
+app.delete("/delete/:id", (req, res) => {
+  const { id } = req.params;
+  delete config[id];
   res.json(config);
 });
 
