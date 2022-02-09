@@ -17,22 +17,12 @@ const withFeatureFlagsCreator =
       getConfig();
     }, []);
 
-    const enableFeature = (feature) => {
-      setFeatures({ ...features, [feature]: true });
-    };
-
-    const disableFeature = (feature) => {
-      setFeatures({ ...features, [feature]: false });
-    };
-
     const isFeatureEnabled = (feature) => {
       return features[feature];
     };
 
     const newProps = {
       ...props,
-      enableFeature,
-      disableFeature,
       isFeatureEnabled,
     };
     return <Component {...newProps} />;
