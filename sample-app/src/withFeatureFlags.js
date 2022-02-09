@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from "react";
-import config from "./config";
 
 const withFeatureFlagsCreator =
-  (config = {}) =>
+  ({ ffServerURL, attributes }) =>
   (Component) =>
   (props) => {
-    const [features, setFeatures] = useState({ ...config });
+    const [features, setFeatures] = useState({});
 
     useEffect(() => {
       const getConfig = async () => {
-        const response = await fetch(`http://localhost:4000/config`);
+        const response = await fetch(`${ffServerURL}/config`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(attributes),
+        });
         const data = await response.json();
         setFeatures(data);
       };
@@ -28,7 +31,14 @@ const withFeatureFlagsCreator =
     return <Component {...newProps} />;
   };
 
-const withFeatureFlags = withFeatureFlagsCreator(config);
+const withFeatureFlags = withFeatureFlagsCreator({
+  ffServerURL: "http://localhost:4000",
+  attributes: {
+    static: {
+      environment: process.env.REACT_APP_ENVIRONMENT_NAME,
+    },
+  },
+});
 
 export { withFeatureFlags };
 export default withFeatureFlags;

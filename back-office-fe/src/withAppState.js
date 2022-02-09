@@ -7,7 +7,7 @@ const withAppState = (Component) => (props) => {
 
   useEffect(() => {
     const getConfig = async () => {
-      const response = await fetch(`http://localhost:4000/config`);
+      const response = await fetch(`http://localhost:4000/back-office-config`);
       const data = await response.json();
       setFlags(data);
     };
@@ -16,9 +16,9 @@ const withAppState = (Component) => (props) => {
   }, []);
 
   const toggleFlag = async (flag) => {
-    const newFlagState = !flags[flag];
+    const newFlagState = !flags[flag].globally;
     const response = await fetch(
-      `http://localhost:4000/${flag}/${newFlagState}`,
+      `http://localhost:4000/${flag}/globally/${newFlagState}`,
       { method: "PATCH" }
     );
     const data = await response.json();
