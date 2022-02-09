@@ -8,11 +8,23 @@ import FormGroup from "@mui/material/FormGroup";
 import CssBaseline from "@mui/material/CssBaseline";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
+import TextField from "@mui/material/TextField";
+import IconButton from "@mui/material/IconButton";
+import AddBox from "@mui/icons-material/AddBox";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 import { darkTheme } from "./theme";
 import { withAppState } from "./withAppState";
 
-const App = ({ flags, toggleFlag }) => (
+const App = ({
+  flags,
+  toggleFlag,
+  inputRef,
+  inputText,
+  setInputText,
+  addFeatureFlagHandler,
+  removeFeatureFlagHandler,
+}) => (
   <ThemeProvider theme={darkTheme}>
     <CssBaseline />
     <Container
@@ -30,16 +42,49 @@ const App = ({ flags, toggleFlag }) => (
         </AppBar>
       </Box>
       <Container sx={{ bgcolor: "black", mt: 4 }}>
+        <Box sx={{ p: 4 }}>
+          <TextField
+            ref={inputRef}
+            id="standard-basic"
+            label="New feature"
+            variant="standard"
+            size="small"
+            value={inputText}
+            onChange={(event) => setInputText(event.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && addFeatureFlagHandler()}
+            InputProps={{
+              endAdornment: (
+                <IconButton
+                  aria-label="add-feature-flag"
+                  size="large"
+                  color="success"
+                  onClick={addFeatureFlagHandler}
+                >
+                  <AddBox />
+                </IconButton>
+              ),
+            }}
+          />
+        </Box>
         <FormGroup sx={{ p: 2 }}>
           {Object.entries(flags).map(([flagName, value]) => (
-            <FormControlLabel
-              key={flagName}
-              sx={{ justifyContent: "space-between" }}
-              control={<Switch checked={value} />}
-              label={flagName}
-              labelPlacement="start"
-              onChange={() => toggleFlag(flagName)}
-            />
+            <Box sx={{ display: "flex" }} key={flagName}>
+              <FormControlLabel
+                sx={{ flexGrow: 1, justifyContent: "space-between" }}
+                control={<Switch checked={value} />}
+                label={flagName}
+                labelPlacement="start"
+                onChange={() => toggleFlag(flagName)}
+              />
+              <IconButton
+                aria-label="remove-feature-flag"
+                size="large"
+                color="error"
+                onClick={() => removeFeatureFlagHandler(flagName)}
+              >
+                <DeleteIcon />
+              </IconButton>
+            </Box>
           ))}
         </FormGroup>
       </Container>

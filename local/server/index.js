@@ -12,19 +12,22 @@ app.get("/config", (req, res) => {
   res.json(config);
 });
 
-app.post("/:id/:boolean", (req, res) => {
+app.post("/create/:id", (req, res) => {
+  const { id } = req.params;
+  config = { ...config, [id]: false };
+
+  console.log(`${id} created`);
+
+  res.json(config);
+});
+
+app.patch("/:id/:boolean", (req, res) => {
   const { id } = req.params;
   const boolean = req.params.boolean === "true";
   config = { ...config, [id]: boolean };
 
   console.log(`${id} changed to ${boolean}`);
 
-  res.json(config);
-});
-
-app.post("/create/:id", (req, res) => {
-  const { id } = req.params;
-  config = { ...config, [id]: false };
   res.json(config);
 });
 
