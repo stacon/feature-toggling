@@ -1,42 +1,60 @@
 const express = require("express");
-var cors = require("cors");
+const cors = require("cors");
+const bodyParser = require("body-parser");
+
+const { initialflagsState } = require("./initialflagsState");
+const { getClientConfig } = require("./utils");
+
 const app = express();
-const port = 4000;
+const PORT = 4000;
 
 app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-let config = { "new.logo": false, "new.button": false };
+let flagsState = { ...initialflagsState };
 
-app.get("/config", (req, res) => {
-  console.log(`Sending config...`);
-  res.json(config);
+app.post("/config", (req, res) => {
+  const attributes = req.body;
+
+  res.json(getClientConfig(flagsState, attributes));
+});
+
+app.get("/back-office-config", (req, res) => {
+  res.json(flagsState);
+});
+
+app.patch("/:id/:attribute/:boolean", (req, res) => {
+  const { id, attribute } = req.params;
+  const boolean = req.params.boolean === "true";
+
+  if (attribute === "globally") {
+    flagsState = {
+      ...flagsState,
+      [id]: { ...flagsState[id], globally: boolean },
+    };
+  }
+
+  console.log(`${id} changed to ${boolean}`);
+
+  res.json(flagsState);
 });
 
 app.post("/create/:id", (req, res) => {
   const { id } = req.params;
-  config = { ...config, [id]: false };
+  flagsState = { ...flagsState, [id]: false };
 
   console.log(`${id} created`);
 
-  res.json(config);
-});
-
-app.patch("/:id/:boolean", (req, res) => {
-  const { id } = req.params;
-  const boolean = req.params.boolean === "true";
-  config = { ...config, [id]: boolean };
-
-  console.log(`${id} changed to ${boolean}`);
-
-  res.json(config);
+  res.json(flagsState);
 });
 
 app.delete("/delete/:id", (req, res) => {
   const { id } = req.params;
-  delete config[id];
-  res.json(config);
+  delete flagsState[id];
+  res.json(flagsState);
 });
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+app.listen(PORT, () => {
+  console.log(`Example app listening on port ${PORT}`);
 });

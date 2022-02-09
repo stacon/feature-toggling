@@ -67,11 +67,11 @@ const App = ({
           />
         </Box>
         <FormGroup sx={{ p: 2 }}>
-          {Object.entries(flags).map(([flagName, value]) => (
+          {Object.entries(flags).map(([flagName, { globally }]) => (
             <Box sx={{ display: "flex" }} key={flagName}>
               <FormControlLabel
                 sx={{ flexGrow: 1, justifyContent: "space-between" }}
-                control={<Switch checked={value} />}
+                control={<Switch checked={globally} />}
                 label={flagName}
                 labelPlacement="start"
                 onChange={() => toggleFlag(flagName)}
