@@ -1,9 +1,9 @@
-const express = require("express");
-const cors = require("cors");
-const bodyParser = require("body-parser");
+import express from "express";
+import cors from "cors";
+import bodyParser from "body-parser";
 
-const { initialflagsState } = require("./initialflagsState");
-const { getClientConfig } = require("./utils");
+import { initialflagsState } from "./initialflagsState";
+import { createFlag, getClientConfig } from "./utils";
 
 const app = express();
 const PORT = 4000;
@@ -42,7 +42,7 @@ app.patch("/:id/:attribute/:boolean", (req, res) => {
 
 app.post("/create/:id", (req, res) => {
   const { id } = req.params;
-  flagsState = { ...flagsState, [id]: false };
+  flagsState = { ...flagsState, [id]: createFlag() };
 
   console.log(`${id} created`);
 
