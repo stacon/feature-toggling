@@ -1,7 +1,11 @@
 import React, { useEffect, useState, useRef } from "react";
+import { compose } from "redux";
+
+import { withModelProps } from "aa-minimal-core-lib/components/model-props";
+import { flags, setFlags } from "models/app";
 
 const withAppState = (Component) => (props) => {
-  const [flags, setFlags] = useState([]);
+  const { flags, setFlags } = props;
   const inputRef = useRef(null);
   const [inputText, setInputText] = useState("");
 
@@ -63,4 +67,4 @@ const withAppState = (Component) => (props) => {
 };
 
 export { withAppState };
-export default withAppState;
+export default compose(withModelProps({ flags, setFlags }), withAppState);

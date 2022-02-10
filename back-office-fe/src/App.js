@@ -14,7 +14,8 @@ import AddBox from "@mui/icons-material/AddBox";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 import { darkTheme } from "./theme";
-import { withAppState } from "./withAppState";
+import withAppState from "./withAppState";
+import { StaticsPopover } from "./components";
 
 const App = ({
   flags,
@@ -67,25 +68,34 @@ const App = ({
           />
         </Box>
         <FormGroup sx={{ p: 2 }}>
-          {Object.entries(flags).map(([flagName, { globally }]) => (
-            <Box sx={{ display: "flex" }} key={flagName}>
-              <FormControlLabel
-                sx={{ flexGrow: 1, justifyContent: "space-between" }}
-                control={<Switch checked={globally} />}
-                label={flagName}
-                labelPlacement="start"
-                onChange={() => toggleFlag(flagName)}
-              />
-              <IconButton
-                aria-label="remove-feature-flag"
-                size="large"
-                color="error"
-                onClick={() => removeFeatureFlagHandler(flagName)}
-              >
-                <DeleteIcon />
-              </IconButton>
-            </Box>
-          ))}
+          {Object.entries(flags).map(
+            ([
+              flagName,
+              {
+                globally,
+                attributes: { statics },
+              },
+            ]) => (
+              <Box sx={{ display: "flex" }} key={flagName}>
+                <FormControlLabel
+                  sx={{ flexGrow: 1, justifyContent: "space-between" }}
+                  control={<Switch checked={globally} />}
+                  label={flagName}
+                  labelPlacement="start"
+                  onChange={() => toggleFlag(flagName)}
+                />
+                <StaticsPopover featureName={flagName} statics={statics} />
+                <IconButton
+                  aria-label="remove-feature-flag"
+                  size="large"
+                  color="error"
+                  onClick={() => removeFeatureFlagHandler(flagName)}
+                >
+                  <DeleteIcon />
+                </IconButton>
+              </Box>
+            )
+          )}
         </FormGroup>
       </Container>
     </Container>
