@@ -34,9 +34,10 @@ const withFeatureFlagsCreator =
 const withFeatureFlags = withFeatureFlagsCreator({
   ffServerURL: "http://localhost:4000",
   attributes: {
-    static: {
+    statics: {
       environment: process.env.REACT_APP_ENVIRONMENT_NAME,
     },
+    dynamics: {},
   },
 });
 

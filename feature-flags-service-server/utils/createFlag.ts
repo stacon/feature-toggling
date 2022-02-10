@@ -4,7 +4,7 @@ import FeatureFlag from "../types/FeatureFlag.type";
 // TODO: This is an example configuration for static attributes
 const config: Config = {
   statics: {
-    environments: ["DEVELOPMENT", "STAGING", "PRODUCTION"],
+    environment: ["DEVELOPMENT", "STAGING", "PRODUCTION"],
   },
   dynamics: {},
 };
