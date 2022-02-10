@@ -14,6 +14,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 let flagsState = { ...initialflagsState };
 
+// flagsState["new.logo"].attributes.statics.environment.DEVELOPMENT = true;
+
 app.post("/config", (req, res) => {
   const attributes = req.body;
 
@@ -33,9 +35,18 @@ app.patch("/:id/:attribute/:boolean", (req, res) => {
       ...flagsState,
       [id]: { ...flagsState[id], globally: boolean },
     };
+
+    console.log(`${id} changed globally to ${boolean}`);
   }
 
-  console.log(`${id} changed to ${boolean}`);
+  if (attribute.includes("static")) {
+    const [_, staticName, staticMember] = attribute.split(".");
+    flagsState[id].attributes.statics[staticName][staticMember] = boolean;
+
+    console.log(
+      `${id} changed static ${staticName}.${staticMember} to ${boolean}`
+    );
+  }
 
   res.json(flagsState);
 });
