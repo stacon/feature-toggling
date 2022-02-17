@@ -2,7 +2,7 @@ import classNames from "classnames";
 import logo from "./logo.svg";
 import "./App.css";
 
-import withFeatureFlags from "./withFeatureFlags";
+import withFeatureFlags from "./feature-flags/withFeatureFlags";
 
 const App = ({ isFeatureEnabled }) => (
   <div className="App">
@@ -42,4 +42,12 @@ const App = ({ isFeatureEnabled }) => (
   </div>
 );
 
-export default withFeatureFlags(App);
+export default withFeatureFlags({
+  ffServerURL: "http://localhost:4000",
+  attributes: {
+    statics: {
+      environment: process.env.REACT_APP_ENVIRONMENT_NAME,
+    },
+    dynamics: {},
+  },
+})(App);
