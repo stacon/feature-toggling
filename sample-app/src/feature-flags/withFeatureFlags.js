@@ -1,7 +1,7 @@
 import React from "react";
 import useFeatureFlags from "./useFeatureFlags.js";
 
-const withFeatureFlagsCreator =
+const withFeatureFlags =
   ({ ffServerURL, attributes }) =>
   (Component) =>
   (props) => {
@@ -13,8 +13,6 @@ const withFeatureFlagsCreator =
     };
     return <Component {...newProps} />;
   };
-
-const withFeatureFlags = withFeatureFlagsCreator;
 
 export { withFeatureFlags };
 export default withFeatureFlags;
