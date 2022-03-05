@@ -4,8 +4,8 @@ import staticsFlag from "./staticsFlag";
 const getClientConfig = (
   flagsState: FeaturesFlagState,
   clientAttributes: ClientAttributes
-): FlagList => {
-  return Object.entries(flagsState).reduce((acc, [flag, flagConfig]) => {
+): FlagList =>
+  Object.entries(flagsState).reduce((acc, [flag, flagConfig]) => {
     const { globally, attributes } = flagConfig;
 
     if (globally) {
@@ -17,6 +17,5 @@ const getClientConfig = (
 
     return { ...acc, [flag]: false };
   }, {});
-};
 
 export default getClientConfig;
