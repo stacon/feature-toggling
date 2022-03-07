@@ -6,7 +6,7 @@ describe("createFlag", () => {
       globally: false,
       attributes: {
         statics: {
-          environments: {
+          environment: {
             DEVELOPMENT: false,
             STAGING: false,
             PRODUCTION: false,
