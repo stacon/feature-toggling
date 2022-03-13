@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { ClientAttributes, FeaturesFlagState, FlagList } from './types';
+import { ClientAttributes, FeaturesFlagState, FlagList } from '../types';
 
-import { createFlag, staticsFlag } from './utils';
-import { initialflagsState } from './initialflagsState';
+import { createFlag, staticsFlag } from '../utils';
+import { initialflagsState } from '../initialflagsState';
 
 @Injectable()
-export class AppService {
+export class FlagsService {
   private flagsState = { ...initialflagsState };
 
   flagState(): FeaturesFlagState {

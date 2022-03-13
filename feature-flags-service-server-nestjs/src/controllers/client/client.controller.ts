@@ -1,13 +1,13 @@
 import { Controller, Post, Body } from '@nestjs/common';
-import { AppService } from 'src/app.service';
+import { FlagsService } from 'src/services/flags.service';
 import { ClientAttributes, FlagList } from 'src/types';
 
 @Controller('client')
 export class ClientController {
-  constructor(private readonly appService: AppService) {}
+  constructor(private readonly FlagsService: FlagsService) {}
 
   @Post('config')
   getClientConfig(@Body() attributes: ClientAttributes): FlagList {
-    return this.appService.getClientConfig(attributes);
+    return this.FlagsService.getClientConfig(attributes);
   }
 }
