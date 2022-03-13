@@ -16,7 +16,7 @@ const withStaticsPopoverState = (Component) => (props) => {
     staticChildToggleValue
   ) => {
     const response = await fetch(
-      `http://localhost:4000/${featureName}/static.${staticName}.${staticChildName}/${staticChildToggleValue}`,
+      `http://localhost:4000/back-office/${featureName}/static.${staticName}.${staticChildName}/${staticChildToggleValue}`,
       { method: "PATCH" }
     );
     const data = await response.json();
