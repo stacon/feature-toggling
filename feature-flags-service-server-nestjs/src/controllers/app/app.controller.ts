@@ -1,10 +1,10 @@
 import { Controller, Get } from '@nestjs/common';
 
-import { AppService } from '../../app.service';
+import { FlagsService } from '../../services/flags.service';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(private readonly FlagsService: FlagsService) {}
 
   @Get()
   getStatus(): string {
