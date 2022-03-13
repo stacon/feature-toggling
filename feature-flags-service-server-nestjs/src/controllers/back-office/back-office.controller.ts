@@ -1,4 +1,4 @@
-import { Controller, Get, Patch, Body, Post, Delete } from '@nestjs/common';
+import { Controller, Get, Patch, Post, Delete, Param } from '@nestjs/common';
 import { AppService } from 'src/app.service';
 import { FeaturesFlagState } from 'src/types';
 
@@ -13,20 +13,27 @@ export class BackOfficeController {
 
   @Patch(':id/:attribute/:toggle')
   changeAttribute(
-    @Body() id: string,
-    @Body() attribute: string,
-    @Body() toggle: string,
+    @Param()
+    {
+      id,
+      attribute,
+      toggle,
+    }: {
+      id: string;
+      attribute: string;
+      toggle: string;
+    },
   ): FeaturesFlagState {
     return this.appService.changeAttribute(id, attribute, toggle);
   }
 
   @Post('create/:id')
-  createFlag(@Body() id: string): FeaturesFlagState {
+  createFlag(@Param() { id }: { id: string }): FeaturesFlagState {
     return this.appService.createNewFlag(id);
   }
 
   @Delete(':id')
-  deleteFlag(@Body() id: string): FeaturesFlagState {
+  deleteFlag(@Param() { id }: { id: string }): FeaturesFlagState {
     return this.appService.deleteFlag(id);
   }
 }
