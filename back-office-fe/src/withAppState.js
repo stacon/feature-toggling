@@ -11,7 +11,7 @@ const withAppState = (Component) => (props) => {
 
   useEffect(() => {
     const getConfig = async () => {
-      const response = await fetch(`http://localhost:4000/back-office-config`);
+      const response = await fetch(`http://localhost:4000/back-office/config`);
       const data = await response.json();
       setFlags(data);
     };
@@ -22,7 +22,7 @@ const withAppState = (Component) => (props) => {
   const toggleFlag = async (flag) => {
     const newFlagState = !flags[flag].globally;
     const response = await fetch(
-      `http://localhost:4000/${flag}/globally/${newFlagState}`,
+      `http://localhost:4000/back-office/${flag}/globally/${newFlagState}`,
       { method: "PATCH" }
     );
     const data = await response.json();
@@ -32,9 +32,12 @@ const withAppState = (Component) => (props) => {
   };
 
   const addFeatureFlagHandler = async () => {
-    const response = await fetch(`http://localhost:4000/create/${inputText}`, {
-      method: "POST",
-    });
+    const response = await fetch(
+      `http://localhost:4000/back-office/create/${inputText}`,
+      {
+        method: "POST",
+      }
+    );
     const data = await response.json();
     if (response.status === 200) {
       setFlags(data);
@@ -43,7 +46,7 @@ const withAppState = (Component) => (props) => {
   };
 
   const removeFeatureFlagHandler = async (flag) => {
-    const response = await fetch(`http://localhost:4000/delete/${flag}`, {
+    const response = await fetch(`http://localhost:4000/back-office/${flag}`, {
       method: "DELETE",
     });
     const data = await response.json();

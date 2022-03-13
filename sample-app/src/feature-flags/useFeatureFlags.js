@@ -5,7 +5,7 @@ const useFeatureFlags = ({ ffServerURL, attributes }) => {
 
   useEffect(() => {
     const getConfig = async () => {
-      const response = await fetch(`${ffServerURL}/config`, {
+      const response = await fetch(`${ffServerURL}/client/config`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(attributes),
