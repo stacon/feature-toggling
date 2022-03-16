@@ -1,7 +1,7 @@
-import getClientConfig from "../getClientConfig";
+import getClientConfig from '../getClientConfig';
 
 const mockFlagsState = {
-  "new.feature": {
+  'new.feature': {
     globally: false,
     attributes: {
       statics: {
@@ -11,37 +11,34 @@ const mockFlagsState = {
           PRODUCTION: false,
         },
       },
-      dynamics: {},
     },
   },
 };
 
-describe("getClientConfig", () => {
-  it("should return the expected output", () => {
+describe('getClientConfig', () => {
+  it('should return the expected output', () => {
     const attributes = {
       statics: {
-        environment: "DEVELOPMENT",
+        environment: 'DEVELOPMENT',
       },
-      dynamics: {},
     };
 
     const expectedOutput = {
-      "new.feature": true,
+      'new.feature': true,
     };
 
     expect(getClientConfig(mockFlagsState, attributes)).toEqual(expectedOutput);
   });
 
-  it("should return the expected output", () => {
+  it('should return the expected output', () => {
     const attributes = {
       statics: {
-        environment: "PRODUCTION",
+        environment: 'PRODUCTION',
       },
-      dynamics: {},
     };
 
     const expectedOutput = {
-      "new.feature": false,
+      'new.feature': false,
     };
 
     expect(getClientConfig(mockFlagsState, attributes)).toEqual(expectedOutput);

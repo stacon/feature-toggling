@@ -1,12 +1,11 @@
-import { Config } from "../types";
-import FeatureFlag from "../types/FeatureFlag.type";
+import { Config } from '../types';
+import FeatureFlag from '../types/FeatureFlag.type';
 
 // TODO: This is an example configuration for static attributes
 const config: Config = {
   statics: {
-    environment: ["DEVELOPMENT", "STAGING", "PRODUCTION"],
+    environment: ['DEVELOPMENT', 'STAGING', 'PRODUCTION'],
   },
-  dynamics: {},
 };
 
 const createFlag =
@@ -23,13 +22,12 @@ const createFlag =
                 ...acc,
                 [value]: false,
               }),
-              {}
+              {},
             ),
           }),
-          {}
+          {},
         ),
       },
-      dynamics: {},
     },
   });
 

@@ -1,7 +1,7 @@
-import createFlag from "../createFlag";
+import createFlag from '../createFlag';
 
-describe("createFlag", () => {
-  it("should create the expected FeatureFlag", () => {
+describe('createFlag', () => {
+  it('should create the expected FeatureFlag', () => {
     expect(createFlag()).toEqual({
       globally: false,
       attributes: {
@@ -12,7 +12,6 @@ describe("createFlag", () => {
             PRODUCTION: false,
           },
         },
-        dynamics: {},
       },
     });
   });

@@ -1,12 +1,11 @@
-import staticsFlag from "../../utils/staticsFlag";
+import staticsFlag from '../../utils/staticsFlag';
 
-describe("staticsFlag", () => {
-  test("should return true", () => {
+describe('staticsFlag', () => {
+  test('should return true', () => {
     const clientAttributes = {
       statics: {
-        environment: "DEVELOPMENT",
+        environment: 'DEVELOPMENT',
       },
-      dynamics: {},
     };
     const stateAttributes = {
       statics: {
@@ -16,7 +15,6 @@ describe("staticsFlag", () => {
           PRODUCTION: false,
         },
       },
-      dynamics: {},
     };
 
     expect(staticsFlag(clientAttributes, stateAttributes)).toBe(true);
