@@ -48,6 +48,5 @@ export default withFeatureFlags({
     statics: {
       environment: process.env.REACT_APP_ENVIRONMENT_NAME,
     },
-    dynamics: {},
   },
 })(App);
